@@ -54,7 +54,7 @@ namespace _23._1News.Services.Implement
                 Category = _db.Categories
                                 .FirstOrDefault(c => c.CategoryId == articleVM.ChosenCategory)!,
                 DateStamp = articleVM.DateStamp,
-                ImageLink = articleVM.File.Name,
+                ImageLink = articleVM.ImageLink,
                 EdChoice = articleVM.EdChoice
             };
 
@@ -100,9 +100,7 @@ namespace _23._1News.Services.Implement
             {
                 article.BlobLink = GetBlobImage(article.ImageLink);
             }
-
-            //article!.BlobLink = GetBlobImage(article.ImageLink);
-
+            article!.BlobLink = GetBlobImage(article.ImageLink);
             return article;
         }
 
@@ -124,7 +122,7 @@ namespace _23._1News.Services.Implement
                 item.BlobLink = GetBlobImage(item.ImageLink);
             }
 
-          
+
             var searchResults = Articles
                 .Where(article =>
 
@@ -132,12 +130,12 @@ namespace _23._1News.Services.Implement
                     article.Content.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
                     article.ContentSummary.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
                     article.LinkText.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                    (datestamp != null && article.DateStamp.Date == datestamp) 
+                    (datestamp != null && article.DateStamp.Date == datestamp)
 
                     )
                   .ToList();
 
-           
+
             return searchResults;
         }
 
@@ -216,9 +214,10 @@ namespace _23._1News.Services.Implement
             return address;
         }
 
-        public string UploadImageFile(IFormFile file)
+        public string UploadImageFile(ArticleVM articleVM)
         {
-            string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+            IFormFile file = articleVM.File;
+            string uniqueFileName = articleVM.ImageLink;
             BlobServiceClient blobServiceClient = new BlobServiceClient(
                 _configuration["AzureWebJobsStorage"]);
             BlobContainerClient blobContainerClient = blobServiceClient.GetBlobContainerClient("newsimages");
@@ -252,7 +251,7 @@ namespace _23._1News.Services.Implement
 
         //public List<Article> GetArchiveNews()
         //{
-        //    var archiveNews = _db.Articles.Where(a => a.DateStamp.Date == DateTime.Now
+        //    var archiveNews = _db.Articles.Where(a => a.DateStamp.Date == DateTime.Today
         //                                .AddDays(-30)).ToList();
 
         //    foreach (var item in archiveNews)
@@ -260,24 +259,26 @@ namespace _23._1News.Services.Implement
         //        item.Archived = true;
         //    }
 
+
         //    _db.SaveChanges();
         //    return archiveNews;
         //}
 
 
-        //[Authorize("Admin")]
+        [Authorize("Admin")]
         public List<Article> GetArchiveNews()
         {
             var thirtyDaysAgo = DateTime.Today.AddDays(-30);
 
             var archiveNews = _db.Articles
-                .Where(a => a.DateStamp.Date <= thirtyDaysAgo && !a.Archived)
-                .ToList();
+             .Where(a => a.DateStamp.Date <= thirtyDaysAgo && !a.Archived)
+             .ToList();
 
             foreach (var item in archiveNews)
             {
                 item.Archived = true;
             }
+
 
             _db.SaveChanges();
             return archiveNews;
@@ -348,6 +349,20 @@ namespace _23._1News.Services.Implement
         //    return searchResults;
         //}
 
+        public List<Article> GetFirstArticleInCategory()
+        {
+
+            var articles = _db.Articles.GroupBy(x => x.CategoryId)
+            .Select(g => g.OrderByDescending(x => x.DateStamp).First()).ToList();
+
+
+            foreach (var item in articles)
+            {
+                item.BlobLink = GetBlobImage(item.ImageLink);
+            }
+
+            return articles;
+        }
 
 
     }

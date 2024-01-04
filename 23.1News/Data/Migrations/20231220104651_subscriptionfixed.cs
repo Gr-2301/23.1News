@@ -4,7 +4,7 @@
 
 namespace _23._1News.Data.Migrations
 {
-    public partial class p : Migration
+    public partial class subscriptionfixed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

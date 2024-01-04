@@ -162,7 +162,10 @@ namespace _23._1News.Controllers
 
             //}
 
-            _articleService.UploadImageFile(articleVM.File);
+            articleVM.ImageLink = Guid.NewGuid().ToString() + "_" + articleVM.File.FileName;
+
+            _articleService.UploadImageFile(articleVM);
+
             var userId = _userManager.GetUserId(User);
 
             _articleService.CreateArticle(articleVM, userId);
@@ -362,12 +365,9 @@ namespace _23._1News.Controllers
         }
 
 
-        [Route("arc")]
 
         public IActionResult ArchivedNews()
-
         {
-
             var archives = _articleService.GetArchiveNews();
 
             return View(archives);

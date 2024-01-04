@@ -21,11 +21,12 @@ namespace _23._1News.Services.Abstract
 
         List<Category> GetCategories();
 
-        string UploadImageFile(IFormFile file);
-
+        string UploadImageFile(ArticleVM articleVM);
 
         List<Article> GetArchiveNews();
         List<Article> SearchArhivedNews(string Headline);
+
+        public List<Article> GetFirstArticleInCategory();
 
     }
 }
