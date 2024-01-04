@@ -24,15 +24,15 @@
 
 
                                         <div class="card col-md-11" style="margin-bottom:20px;">
-                                    <a asp-route-id="@item.Category.CategoryId"><h5 style="margin:10px;">@item.Category.Name</h5></a>
-                                            <h2 class="mt-2">@item.Headline</h2>
-                                           
-                                            <div class="card-body">
+                                    <a asp-route-id="@item.Category.CategoryId"><h5 style="margin-top:10px;">@item.Category.Name</h5></a>
+                                            
+                                    <div class="card-body" style="margin:-10px;">
                                                 <a asp-controller="Article" asp-action="Details" asp-route-id="@item.Id">
+                                                <h2 class="mt-2 mb-3">@item.Headline</h2>
                                                 <img src="@item.BlobLink" class="card-img-top" alt="...">
                                                     @*<h5 class="card-title">@item.LinkText</h5>*@
 
-                                                    <p class="card-text mt-2">@TempData["ContentSummary"]</p>
+                                                    <p class="card-text mt-3 mb-3">@TempData["ContentSummary"]</p>
                                                     @*<p class="card-text">@item.Content</p>*@
                                                 </a>
                                             </div>

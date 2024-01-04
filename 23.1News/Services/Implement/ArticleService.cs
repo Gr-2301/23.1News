@@ -132,7 +132,7 @@ namespace _23._1News.Services.Implement
                     article.LinkText.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
                     (datestamp != null && article.DateStamp.Date == datestamp)
 
-                    )
+                    ).OrderByDescending(article => article.DateStamp)
                   .ToList();
 
 
