@@ -30,7 +30,7 @@ namespace _23._1News.Controllers
 
         public async Task<IActionResult> LatestRates()
         {
-            // Get the user ID of the logged-in user
+            
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             if (userId != null && _subscriptionService.isEnteprise(userId))

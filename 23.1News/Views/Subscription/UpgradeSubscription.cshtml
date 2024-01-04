@@ -1,4 +1,4 @@
-﻿@model _23._1News.Models.ViewModels.UpgradeSubscriptionVM
+@model _23._1News.Models.ViewModels.UpgradeSubscriptionVM
 
 @{
     ViewData["Title"] = "UpgradeSubscription";
@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-6">
-        <form id="payment-form" asp-action="UpgradeSubscription" method="post" class="card p-4">
+        <form asp-action="UpgradeSubscription" method="post" class="card p-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
@@ -51,22 +51,9 @@
                 <span asp-validation-for="NewSubscriptionTypeId" class="text-danger"></span>
             </div>
 
-
-            <div id="paymentFields" style="display: none;">
-
-                <label for="card-element">
-                    Credit or debit card
-                </label>
-                <div id="card-element" class="mb-3">
-
-                </div>
-                <div id="card-errors" role="alert" class="text-danger"></div>
-            </div>
-
-            <button id="submit-payment" class="btn btn-primary btn-block">Upgrade Subscription</button>
+            <button class="btn btn-primary btn-block">Upgrade Subscription</button>
         </form>
     </div>
-
 
     <div class="col-md-6">
         <h4 class="mb-4">Subscription Plans</h4>
@@ -75,17 +62,15 @@
             <div class="card-body">
                 <h5 class="card-title">Upgrade Options</h5>
 
-
                 <div class="mb-3">
                     <h6 class="my-0 fw-normal">Upgrade to BASIC</h6>
                     <p class="text-muted">$9.99/mo</p>
                     <ul class="list-unstyled mt-3 mb-4">
                         <li>Access to premium content</li>
                         <li>Ad-free experience</li>
-                        <
+                        
                     </ul>
                 </div>
-
 
                 @if (Model.ActiveSubscription != null && Model.ActiveSubscription.SubscriptionType.TypeName != "Premium")
                 {
@@ -96,7 +81,7 @@
                             <li>Access to all features</li>
                             <li>Priority customer support</li>
                             <li>Exclusive events and content</li>
-
+                            
                         </ul>
                     </div>
                 }
@@ -114,6 +99,3 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-
-
-
