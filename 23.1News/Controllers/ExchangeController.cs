@@ -1,13 +1,6 @@
 ﻿using _23._1News.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.WindowsAzure.Storage.Table;
-using Microsoft.WindowsAzure.Storage;
 using System.Security.Claims;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.CodeAnalysis.CSharp;
-using _23._1News.Models.Db;
-using Microsoft.Extensions.Logging;
 
 namespace _23._1News.Controllers
 {
