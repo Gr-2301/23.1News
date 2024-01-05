@@ -125,12 +125,12 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li> *@
                        
-                        @if (User.Identity.IsAuthenticated)
+                      @*   @if (User.Identity.IsAuthenticated)
                         {
                             <li id="hover001" class="nav-item">
                                 <a class="nav-link text-dark" href="https://localhost:7149/Article/GetYahooFinanceData?symbol=AAPL">Finance</a>
                             </li>
-                        }
+                        } *@
                       
     
                         @if (User.Identity.IsAuthenticated)
@@ -146,6 +146,14 @@
                         {
                             <li id="hover001" class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Exchange" asp-action="LatestRates">Rates </a>
+
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li id="hover001" class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Exchange" asp-action="GetHostorical">Rates Historically</a>
+
                             </li>
                         }
                     </ul>
